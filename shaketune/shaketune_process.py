@@ -46,7 +46,7 @@ class ShakeTuneProcess:
             filelist.append(filenames)
 
         # List of legacy .csv files (still supported to be able to use CSVs when using the CLI mode)
-        if isinstance(filenames, List):
+        if isinstance(filenames, list):
             extensions = {f.suffix for f in filenames}
             if len(extensions) > 1:
                 raise ValueError('Mixed file types are not allowed! Please provide Klipper CSV files only.')
@@ -129,7 +129,7 @@ class ShakeTuneProcess:
             ConsoleOutput.print(f'Timeout error: {e}')
             return
         except Exception as e:
-            ConsoleOutput.print(f'Error while generating the graphs: {e}\n{traceback.print_exc()}')
+            ConsoleOutput.print(f'Error while generating the graphs: {e}\n{traceback.format_exc()}')
             return
 
         graph_creator.clean_old_files(self._config.keep_n_results)

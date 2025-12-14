@@ -9,6 +9,7 @@
 
 
 from pathlib import Path
+from typing import List, Optional
 
 from .helpers.console_output import ConsoleOutput
 
@@ -46,13 +47,13 @@ class ShakeTuneConfig:
         self.klipper_folder = KLIPPER_FOLDER
         self.klipper_log_folder = KLIPPER_LOG_FOLDER
 
-    def get_results_folder(self, type: str = None) -> Path:
-        if type is None:
+    def get_results_folder(self, graph_type: Optional[str] = None) -> Path:
+        if graph_type is None:
             return self._result_folder
         else:
-            return self._result_folder / RESULTS_SUBFOLDERS[type]
+            return self._result_folder / RESULTS_SUBFOLDERS[graph_type]
 
-    def get_results_subfolders(self) -> Path:
+    def get_results_subfolders(self) -> List[Path]:
         subfolders = [self._result_folder / subfolder for subfolder in RESULTS_SUBFOLDERS.values()]
         return subfolders
 

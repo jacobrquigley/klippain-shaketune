@@ -258,7 +258,10 @@ class MeasurementsManager:
 
     def __del__(self):
         try:
-            if self._temp_file.exists():
+            if self._writer_process is not None and self._writer_process.is_alive():
+                self._writer_process.terminate()
+                self._writer_process.join(timeout=5)
+            if self._temp_file is not None and self._temp_file.exists():
                 self._temp_file.unlink()
         except Exception:
             pass  # Ignore errors during cleanup

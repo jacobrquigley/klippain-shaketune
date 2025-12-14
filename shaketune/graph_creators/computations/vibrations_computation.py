@@ -23,7 +23,6 @@ from ..computation_results import VibrationsResult
 
 PEAKS_DETECTION_THRESHOLD = 0.05
 PEAKS_RELATIVE_HEIGHT_THRESHOLD = 0.04
-CURVE_SIMILARITY_SIGMOID_K = 0.5
 SPEEDS_VALLEY_DETECTION_THRESHOLD = 0.7  # Lower is more sensitive
 SPEEDS_AROUND_PEAK_DELETION = 3  # to delete +-3mm/s around a peak
 ANGLES_VALLEY_DETECTION_THRESHOLD = 1.1  # Lower is more sensitive
@@ -419,7 +418,7 @@ class VibrationsComputation:
         correlation = np.corrcoef(segment_1_flattened, segment_2_flattened)[0, 1]
         percentage_correlation_biased = (100 * np.power(correlation, 0.75)) + 10
 
-        return np.clip(0, 100, percentage_correlation_biased)
+        return np.clip(percentage_correlation_biased, 0, 100)
 
     def _extract_angle_and_speed(self, logname: str) -> Tuple[float, float]:
         """Extract from the measurement name the angle and speed of the tested movement"""

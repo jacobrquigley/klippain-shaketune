@@ -11,7 +11,7 @@
 import importlib
 import os
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Tuple
 
 from .commands import (
     axes_map_calibration,
@@ -74,7 +74,7 @@ class ShakeTune:
         self._register_commands()
 
     # Initialize the ShakeTune object and its configuration
-    def _initialize_config(self, k_conf) -> None:
+    def _initialize_config(self, k_conf) -> Tuple[ShakeTuneConfig, float, bool]:
         result_folder = k_conf.get('result_folder', default=DEFAULT_FOLDER)
         result_folder_path = Path(result_folder).expanduser() if result_folder else None
         keep_n_results = k_conf.getint('number_of_results_to_keep', default=DEFAULT_NUMBER_OF_RESULTS, minval=0)
