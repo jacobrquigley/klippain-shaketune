@@ -27,3 +27,21 @@ unfixable = ["B"]
 [tool.ruff.format]
 quote-style = "single"
 skip-magic-trailing-comma = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "-ra",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "ci"]
+skips = ["B101"]  # Skip assert warnings (used in tests)
